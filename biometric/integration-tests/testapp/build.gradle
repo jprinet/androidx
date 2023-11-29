@@ -70,3 +70,17 @@ dependencies {
     androidTestImplementation(libs.leakcanaryInstrumentation)
     androidTestImplementation(libs.truth)
 }
+
+project.getTasks().withType(com.android.build.gradle.tasks.MergeResources).configureEach {
+    doLast {
+        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG BEGIN")
+        println("${it.resourceDirsOutsideRootProjectDir.get()}")
+
+        it.resourcesComputer.resources.each { key, value ->
+            println("Iteration BEGIN")
+            println("${key.toString()}=${value.toString()}")
+            println("Iteration END")
+        }
+        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG END")
+    }
+}
