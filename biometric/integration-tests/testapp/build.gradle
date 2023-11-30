@@ -71,16 +71,27 @@ dependencies {
     androidTestImplementation(libs.truth)
 }
 
-//project.getTasks().withType(com.android.build.gradle.tasks.MergeResources).configureEach {
-//    doLast {
-//        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG BEGIN")
-//        println("${it.resourceDirsOutsideRootProjectDir.get()}")
-//
-//        it.resourcesComputer.resources.each { key, value ->
-//            println("Iteration BEGIN")
-//            println("${key.toString()}=${value.toString()}")
-//            println("Iteration END")
+project.getTasks().withType(com.android.build.gradle.tasks.MergeResources).configureEach {
+    doLast {
+        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG BEGIN")
+        println("${it.resourceDirsOutsideRootProjectDir.get()}")
+
+        it.resourcesComputer.resources.get().each { key, value ->
+            println("Iteration resourcesComputer BEGIN")
+            println("${key.toString()}")
+            println("${value.sourceDirectories.files.toString()}")
+            println("Iteration resourcesComputer END")
+        }
+        println("rootDir = ${it.project.rootDir}")
+        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG END")
+    }
+}
+
+//val rootProjectDir = task.project.rootDir
+//for (resourceSourceSet in task.resourcesComputer.resources.get().values) {
+//    for (resDir in resourceSourceSet.sourceDirectories.files) {
+//        if (!FileUtils.isFileInDirectory(resDir, rootProjectDir)) {
+//            resourceDirsOutsideRootProjectDir.add(resDir.canonicalPath)
 //        }
-//        println("DEBUGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG END")
 //    }
 //}
